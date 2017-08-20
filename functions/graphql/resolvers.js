@@ -1,8 +1,9 @@
 const admin = require('firebase-admin');
+const functions = require('firebase-functions');
 
-const database = admin.database();
-const foldersRef = database.ref('folders');
-const resolveFunctions = {
+admin.initializeApp(functions.config().firebase);
+const foldersRef = admin.database().ref('folders');
+module.exports = {
   Query: {
     folders() {
       return foldersRef.once('value')
@@ -50,4 +51,3 @@ const resolveFunctions = {
     }
   }
 };
-module.exports = resolveFunctions;
