@@ -1,0 +1,74 @@
+@import "./_color.scss";
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+body {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 15px;
+  line-height: 1.42857143;
+  background-color: $background-color;
+  color: $text-color;
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+button {
+  display: inline-block;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 12px 18px;
+  background-color: $secondary-color;
+  color: $secondary-text-color;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+button:focus {
+  outline:0;
+}
+button:not([disabled]):hover {
+  background-color: $secondary-dark-color;
+}
+button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+input {
+  outline: none;
+  border: 1px solid $border-color;
+  padding: 12px 18px;
+  background-color: transparent;
+  color: $text-color;
+}
+input:hover {
+  border: 1px solid $border-hover-color;
+}
+input:focus {
+  border: 1px solid $border-focus-color;
+}
+input.error {
+  border: 1px solid $border-error-color;
+}
