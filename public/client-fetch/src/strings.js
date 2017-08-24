@@ -7,3 +7,4 @@ export const FIREBASE_CONFIG = {
   storageBucket: 'fir-graphql-d3127.appspot.com',
   messagingSenderId: '435897940971',
 };
+export const ENDPOINT = 'https://us-central1-fir-graphql-d3127.cloudfunctions.net/api/graphql';
