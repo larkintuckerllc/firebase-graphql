@@ -14,7 +14,6 @@ class Folder extends Component {
     mutate({
       variables: {
         id: folder.id,
-        name: folder.name,
       },
     });
   }

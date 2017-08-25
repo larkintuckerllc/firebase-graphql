@@ -39,10 +39,9 @@ export const UPDATE_FOLDER_GQL = gql`
   }
 `;
 export const DELETE_FOLDER_GQL = gql`
-  mutation deleteFolder($id: String!, $name: String!) {
+  mutation deleteFolder($id: String!) {
     deleteFolder(input: {
       id: $id,
-      name: $name,
     }) {
       id
       name

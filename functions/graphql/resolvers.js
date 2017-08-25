@@ -26,28 +26,28 @@ module.exports = {
       );
     },
     updateFolder(_, { input }) {
-      const folder = foldersRef.child(input.id);
-      return folder.once('value')
+      const folderRef = foldersRef.child(input.id);
+      return folderRef.once('value')
         .then(snapshot => {
-          if (snapshot.val() === null) throw new Error('404');
-          return null;
+          const folder = snapshot.val();
+          if (folder === null) throw new Error('404');
+          return folder;
         })
-        .then(() => {
-          const update = Object.assign({}, input);
+        .then((folder) => {
+          const update = Object.assign(folder, input);
           delete update.id;
-          return foldersRef.child(input.id).set(update);
-        })
-        .then(() => (input));
+          return folderRef.set(update).then(() => (Object.assign({ id: input.id }, update)));
+        });
     },
     deleteFolder(_, { input }) {
-      const folder = foldersRef.child(input.id);
-      return folder.once('value')
-        .then(snapshot => {
-          if (snapshot.val() === null) throw new Error('404');
-          return null;
+      const folderRef = foldersRef.child(input.id);
+      return folderRef.once('value')
+        .then((snapshot) => {
+          const folder = snapshot.val();
+          if (folder === null) throw new Error('404');
+          return Object.assign({ id: input.id }, folder);
         })
-        .then(() => folder.remove())
-        .then(() => (input));
+        .then(folder => folderRef.remove().then(() => (folder)));
     }
   }
 };

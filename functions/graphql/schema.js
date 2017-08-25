@@ -9,6 +9,9 @@ input FolderInput {
   id: String!
   name: String
 }
+input FolderDeleteInput {
+  id: String!
+}
 type Folder {
   id: String!
   name: String
@@ -19,7 +22,7 @@ type Query {
 type Mutation {
   createFolder(input: FolderCreateInput!): Folder
   updateFolder(input: FolderInput): Folder
-  deleteFolder(input: FolderInput): Folder
+  deleteFolder(input: FolderDeleteInput): Folder
 }
 `;
 module.exports = graphqlTools.makeExecutableSchema({
