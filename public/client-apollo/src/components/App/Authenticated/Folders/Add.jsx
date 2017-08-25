@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm, reset } from 'redux-form';
 import { connect } from 'react-redux';
+import { graphql } from 'react-apollo';
+import { CREATE_FOLDER_GQL, FOLDERS_GQL } from '../../../../strings';
 
 const ADD_FORM = 'ADD_FORM';
 const Add = ({ handleSubmit, valid }) => (
@@ -39,8 +41,12 @@ class AddSubmit extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleSubmit({ name }) {
-    window.console.log(name);
-    const { resetForm } = this.props;
+    const { mutate, resetForm } = this.props;
+    mutate({
+      variables: {
+        name,
+      },
+    });
     resetForm();
   }
   render() {
@@ -48,11 +54,24 @@ class AddSubmit extends Component {
   }
 }
 AddSubmit.propTypes = {
+  mutate: PropTypes.func.isRequired,
   resetForm: PropTypes.func.isRequired,
 };
-export default connect(
+const AddConnected = connect(
   null,
   {
     resetForm: () => reset(ADD_FORM),
   },
 )(AddSubmit);
+export default graphql(
+  CREATE_FOLDER_GQL,
+  {
+    options: {
+      update: (store, { data: { createFolder } }) => {
+        const data = store.readQuery({ query: FOLDERS_GQL });
+        data.folders.push(createFolder);
+        store.writeQuery({ query: FOLDERS_GQL, data });
+      },
+    },
+  },
+)(AddConnected);

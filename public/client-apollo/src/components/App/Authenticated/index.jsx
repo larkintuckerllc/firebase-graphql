@@ -1,8 +1,9 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
-import { gql, graphql } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import * as fromFolderOpen from '../../../ducks/folderOpen';
+import { FOLDERS_GQL } from '../../../strings';
 import Folder from './Folder';
 import Folders from './Folders';
 import Frame from './Frame';
@@ -11,12 +12,10 @@ import Welcome from './Welcome';
 
 // FOR PRODUCTION NEED TO LOCK FOLDERS WHEN EDITTING
 const Authenticated = ({
-  closeFolder,
   data: {
     loading,
     folders,
   },
-  folderOpen,
   name,
   isFolderOpen,
   openFolder,
@@ -28,8 +27,7 @@ const Authenticated = ({
       <Logout />
       { isFolderOpen ?
         <Folder
-          closeFolder={closeFolder}
-          folder={folders.find(o => o.id === folderOpen)}
+          folders={folders}
         /> :
         <Folders
           folders={folders}
@@ -40,12 +38,10 @@ const Authenticated = ({
   );
 };
 Authenticated.propTypes = {
-  closeFolder: PropTypes.func.isRequired,
   data: PropTypes.shape({
     folders: PropTypes.array,
     loading: PropTypes.bool.isRequired,
   }).isRequired,
-  folderOpen: PropTypes.string,
   isFolderOpen: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   openFolder: PropTypes.func.isRequired,
@@ -53,14 +49,12 @@ Authenticated.propTypes = {
 Authenticated.defaultProps = {
   folderOpen: null,
 };
-const Connected = connect(
+const AuthenticatedConnected = connect(
   state => ({
     isFolderOpen: fromFolderOpen.getIsFolderOpen(state),
-    folderOpen: fromFolderOpen.getFolderOpen(state),
   }),
   {
-    closeFolder: fromFolderOpen.closeFolder,
     openFolder: fromFolderOpen.openFolder,
   },
 )(Authenticated);
-export default graphql(gql`query { folders { id name } }`)(Connected);
+export default graphql(FOLDERS_GQL)(AuthenticatedConnected);

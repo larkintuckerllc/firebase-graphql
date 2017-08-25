@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
+import { graphql } from 'react-apollo';
+import { UPDATE_FOLDER_GQL } from '../../../../strings';
 import ValidatedTextInput from '../../../ValidatedTextInput';
 
 const UPDATE_FORM = 'UPDATE_FORM';
@@ -41,8 +42,13 @@ class UpdateSubmit extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleSubmit({ name }) {
-    const { closeFolder } = this.props;
-    window.console.log(name);
+    const { closeFolder, folder, mutate } = this.props;
+    mutate({
+      variables: {
+        id: folder.id,
+        name,
+      },
+    });
     closeFolder();
   }
   render() {
@@ -59,8 +65,6 @@ UpdateSubmit.propTypes = {
   closeFolder: PropTypes.func.isRequired,
   // eslint-disable-next-line
   folder: PropTypes.object.isRequired,
+  mutate: PropTypes.func.isRequired,
 };
-export default connect(
-  null,
-  null,
-)(UpdateSubmit);
+export default graphql(UPDATE_FOLDER_GQL)(UpdateSubmit);

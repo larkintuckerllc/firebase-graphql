@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Update from './Update';
+import * as fromFolderOpen from '../../../../ducks/folderOpen';
 
 const Folder = ({ closeFolder, folder }) => (
   <div>
@@ -16,4 +18,11 @@ Folder.propTypes = {
   // eslint-disable-next-line
   folder: PropTypes.object.isRequired,
 };
-export default Folder;
+export default connect(
+  (state, { folders }) => ({
+    folder: folders.find(o => o.id === fromFolderOpen.getFolderOpen(state)),
+  }),
+  {
+    closeFolder: fromFolderOpen.closeFolder,
+  },
+)(Folder);
