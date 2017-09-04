@@ -4,6 +4,7 @@ node_js:
 after_success
   npm install --prefix ./functions
 deploy:
+  skip_cleanup: true
   provider: firebase
   token:
     secure: d2Y53Fp/H8D8KR0OS+cIDmD7GdmBa+GLw+briyByOROHDQySVTOboFJvvE1ZCQD5TH0hgDRxYepkNWr4NEmmjNC1Qsn2KzgqI9xLn7y8vFgXXO4mrmuAHSBo2FX85ofc2F+eNaENMC165CMkolJh5+2tp59W1nmypDrjhQZTWsmYl4jeGiQJ73MPvmDCgze/7fr8C+ppISTgDYQ2jYCLUeEU+LM105+aydzX208rWgQ/idJhZ1qlmGP1ajfbf0Blg9s3B6h6YDDjRdHNjQMyIj0ywqit+kwS+G4GIBmsSZflGgMP9NF92s7T/aM5KCYCw1az0ITybfsvHcs+JQvJAVtBQA/BNrfIl39aMB1bh9EVaOYFsYBZUz8Cg2mIN+xero4xSfKq0CH1v+OGW1YGzXAPEAhbEMVPD9F7OdFj/Z6wUxa+HjmEAgiBncC2JmmKhPowD6GhWxSfXpLeb0kXNOkNuhIgumdlehxQCxq7R/gF1zZ5AsdcMsYBtyJmP/W4jlqxph61QCP8qnSzqHWmJoKfEs6CbocqOLacNdDUGi9RUFDCwqn3dg21Zw+Y1M+JG5BHx9GJDCswmrQtK1PowGGojJF8pysWdyj7CfCM+xgb/NCwyKO1jcYP+hI+bCGH8Wf2TVvuTmOVkb0ohnQ0x9oVJNcHtnnTEdpoe6Mlhas=
